@@ -1,0 +1,9 @@
+1. Indexes were created at startup for employee uniqueness and lookup by department, plus attendance uniqueness by employee/date and common sort/filter queries. The most important is the compound unique index on `(emp_code, date)` for attendance logs, because it guarantees one record per employee-day even when requests hit at the same time. I also added an index on `(date, emp_code)` and on `(status, date, emp_code)` to keep list and analytics queries efficient without forcing application-level checks.
+
+2. For punch-in races, the code does not do a read-then-check before insert. It inserts once and catches `DuplicateKeyError`; that means the loser gets a 409 and both requests cannot create duplicate attendance rows for the same date. This is safer than a custom compare-and-insert and matches the contract’s concurrency requirement.
+
+3. The leaderboard uses competition ranking. If two employees tie at the cutoff, both receive the same rank and the next rank is skipped. The API then filters rows by `rank <= limit`, which can return more than `limit` rows when ties sit at the boundary. Sorting is by total late minutes descending and then employee code ascending.
+
+4. Department headcount is calculated from the employees collection using `joined_on <= month_end`, and the pipeline counts all matching employees even when they have no attendance logs. The attendance data is only joined afterward, so zero-log employees are still included in the department total and rollups.
+
+5. If this had to handle 100x the data, I would split the analytics into precomputed summary collections and trigger incremental refreshes rather than performing large month-range aggregations on every request. The same query logic would stay, but the hot path would move to smaller read-only materialized views.

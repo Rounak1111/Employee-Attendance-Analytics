@@ -1,0 +1,60 @@
+openapi: 3.0.3
+info:
+  title: Employee Attendance & Analytics API
+  version: 1.0.0
+paths:
+  /health:
+    get:
+      responses:
+        '200':
+          description: ok
+  /employees:
+    get:
+      responses:
+        '200':
+          description: Employee list
+    post:
+      responses:
+        '201':
+          description: Employee created
+  /attendance/punch-in:
+    post:
+      responses:
+        '201':
+          description: Punch in created
+  /attendance/punch-out:
+    post:
+      responses:
+        '200':
+          description: Punch out processed
+  /analytics/employees/{emp_code}/monthly:
+    get:
+      responses:
+        '200':
+          description: Monthly employee summary
+  /analytics/departments/summary:
+    get:
+      responses:
+        '200':
+          description: Department summary
+  /analytics/leaderboard/late:
+    get:
+      responses:
+        '200':
+          description: Late leaderboard
+  /analytics/departments/{department}/trend:
+    get:
+      responses:
+        '200':
+          description: Department trend
+  /admin/explain/{endpoint}:
+    get:
+      responses:
+        '200':
+          description: Explain output
+components:
+  schemas:
+    Employee:
+      type: object
+    AttendanceRecord:
+      type: object

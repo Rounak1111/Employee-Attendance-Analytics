@@ -1,0 +1,14 @@
+[
+  {
+    "emp_code": "EMP0001",
+    "date": "2026-07-06",
+    "status": "PRESENT",
+    "punch_in": "2026-07-06T04:00:00Z",
+    "punch_out": "2026-07-06T13:00:00Z",
+    "work_hours": 9.0,
+    "late_minutes": 0,
+    "overtime_minutes": 0,
+    "half_day": false,
+    "history": []
+  }
+]

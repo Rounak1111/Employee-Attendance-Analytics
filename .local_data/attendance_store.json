@@ -1,0 +1,16 @@
+{
+  "employees": [
+    {
+      "emp_code": "EMP2001",
+      "name": "Demo User",
+      "email": "demo@example.com",
+      "department": "Engineering",
+      "shift_start": "09:30",
+      "shift_end": "18:30",
+      "joined_on": "2024-01-01",
+      "created_at": "2026-10-10T06:15:56+00:00",
+      "_id": "3a1edee7-4735-4417-8c45-467204d168fd"
+    }
+  ],
+  "attendance_logs": []
+}
